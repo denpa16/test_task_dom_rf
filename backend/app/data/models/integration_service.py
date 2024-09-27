@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Enum
+from sqlalchemy import Column, Integer, String, Enum, JSON
 import enum
 
 from app.data.models import Base
@@ -15,5 +15,5 @@ class IntegrationServiceTask(Base):
     __tablename__ = "integration_service"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    data = Column(String, nullable=False)
+    data = Column(JSON, nullable=False)
     task_type = Column(Enum(TaskType), nullable=False)

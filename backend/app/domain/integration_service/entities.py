@@ -37,7 +37,7 @@ class IntegrationServiceTaskImportResponseEntity(BaseModel):
 
 class IntegrationServiceTaskCreateEntity(BaseModel):
     task_type: TaskType
-    data: str
+    data: dict | list
 
     model_config = {
         "from_attributes":True

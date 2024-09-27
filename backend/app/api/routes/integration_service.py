@@ -14,7 +14,10 @@ from app.domain.integration_service.services.create import CreateIntegrationServ
 router = APIRouter(prefix="/integration_service", tags=["IntegrationService"])
 
 
-@router.post("/", response_model=IntegrationServiceTaskImportResponseEntity)
+@router.post(
+    "/",
+    #response_model=IntegrationServiceTaskImportResponseEntity
+)
 async def import_messages(
         integration_task: IntegrationServiceTaskImportEntity,
         session: AsyncSession = async_session
