@@ -1,13 +1,19 @@
 from fastapi import FastAPI
 
 from app.api import routes
-
-import threading
-from app.kafka.importers import IntegrationServiceTaskImportService
+from app.kafka.utils import kafka_broker
 
 app = FastAPI()
 app.include_router(router=routes.api_router)
 
+@app.on_event("startup")
+async def startup_event():
+    await kafka_broker.start()
 
-kafka_thread = threading.Thread(target=IntegrationServiceTaskImportService.run)
-kafka_thread.start()
+@app.on_event("shutdown")
+async def shutdown_event():
+    await kafka_broker.stop()
+
+@app.get("/")
+async def read_root():
+    return {"Hello": "World"}
