@@ -9,7 +9,7 @@ from app.domain.integration_service import (
     IntegrationServiceTaskCreateEntity,
     IntegrationServiceTaskImportResponseEntity,
 )
-from app.kafka.utils import publish_message
+from app.kafka.publish import publish_message_to_kafka
 
 logger = logging.getLogger(__name__)
 
@@ -28,5 +28,5 @@ class CreateIntegrationServiceTaskService(ICreateIntegrationServiceTaskService):
         create_data = IntegrationServiceTaskCreateEntity(**integration_service.dict())
         integration_service_: IntegrationServiceTaskEntity = await self.repository.create(create_data)
         data = {"id": integration_service_.id, "task_id": integration_service.dict()["task_id"]}
-        await publish_message(json.dumps(data))
+        await publish_message_to_kafka(json.dumps(data))
         return IntegrationServiceTaskImportResponseEntity(**data)

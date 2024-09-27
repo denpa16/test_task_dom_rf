@@ -11,6 +11,7 @@ x-app_environment: &app_environment
     - POSTGRES_DB
     - KAFKA_RESULT_TOPIC
     - KAFKA_IMPORT_TOPIC
+    - KAFKA_BOOTSTRAP_SERVERS
 
 services:
   backend:
